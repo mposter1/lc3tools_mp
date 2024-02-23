@@ -37,7 +37,7 @@ void ExampleTest(lc3::sim &sim, Tester &tester, double total_points)
 
     sim.run();
 
-    tester.verify("Example 1", (verify_sum(sim, 0x6FA2, 0xB0B7) & 0b11) == 0b11, total_points);
+    tester.verify("Example 1", (verify_sum(sim, 0x6FA2, 0xB0B7, tester) & 0b11) == 0b11, total_points);
 }
 
 void Test(uint16_t a, uint16_t b, double frac, lc3::sim &sim, Tester &tester, double total_points)
