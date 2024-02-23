@@ -109,21 +109,22 @@ void lab1_setup_private(uint16_t num_tests, uint16_t seed, Tester &tester, bool 
         std::stringstream stream;
         stream << std::hex << std::uppercase;
 
-        auto test = [&stream, &tester](std::string test_name, uint16_t a, uint16_t b, double frac)
+        auto test = [&stream, &tester](std::string test_name, uint16_t a, uint16_t b, double weight)
         {
             stream.str("");
             stream << "0x" << std::setfill('0') << std::setw(sizeof(uint16_t) * 2) << a;
             stream << "_";
             stream << "0x" << std::setfill('0') << std::setw(sizeof(uint16_t) * 2) << b;
 
+            frac = 0.5;
             auto test = [a, b, frac](lc3::sim &sim, Tester &tester, double total_points)
-            { Test(a, b, 0.5, sim, tester, total_points); };
-            tester.registerTest(test_name + "_" + stream.str(), test, frac, true);
+            { Test(a, b, frac, sim, tester, total_points); };
+            tester.registerTest(test_name + "_" + stream.str(), test, weight, true);
         };
 
-        test("TestUnsigned", A & 0x00FF, B & 0x00FF, 1.25);
+        test("TestUnsigned", A & 0x00FF, B & 0x00FF, 1.0);
         test("TestSigned", A & 0xFF00, B & 0xFF00, 0.5);
-        test("TestBoth", A, B, 1.25);
+        test("TestBoth", A, B, 1.5);
     }
 }
 
