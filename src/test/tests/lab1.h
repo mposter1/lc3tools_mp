@@ -72,7 +72,7 @@ void Test(uint16_t a, uint16_t b, double frac, lc3::sim &sim, Tester &tester, do
 
 void testBringup(lc3::sim &sim)
 {
-    sim.writePC(0x6000);
+    sim.writePC(0x3000);
     sim.setRunInstLimit(1000);
 }
 
