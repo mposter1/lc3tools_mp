@@ -6,7 +6,7 @@
 #include <random>
 #include <iomanip>
 
-uint8_t verify_sum(lc3::sim &sim, uint16_t a, uint16_t b)
+uint8_t verify_sum(lc3::sim &sim, uint16_t a, uint16_t b, Tester &tester)
 {
     std::stringstream stream;
     uint8_t ret = 0b00;
@@ -15,16 +15,16 @@ uint8_t verify_sum(lc3::sim &sim, uint16_t a, uint16_t b)
     if (unsigned_sum & 0x0100)
         unsigned_sum = 0xFFFF;
 
-    stream << "At x6002, expected " << unsigned_sum;
-    stream << "Got " << student_unsigned_sum;
+    tester.output("At x6002, expected " + std::to_string(unsigned_sum));
+    tester.output("Got " + std::to_string(student_unsigned_sum));
     ret |= 0b01 * (unsigned_sum == student_unsigned_sum);
 
     uint16_t signed_sum = ((a >> 8) + (b >> 8)) << 8, student_signed_sum = sim.readMem(0x6003);
     if ((a & 0x8000) == (b & 0x8000) && (a & 0x8000) != (signed_sum & 0x8000))
         signed_sum = 0xFFFF;
 
-    stream << "At x6003, expected " << signed_sum;
-    stream << "Got " << student_signed_sum;
+    tester.output("At x6003, expected " + std::to_string(signed_sum));
+    tester.output("Got " + std::to_string(student_signed_sum));
     ret |= 0b10 * (signed_sum == student_signed_sum);
 
     return ret;
@@ -49,7 +49,7 @@ void Test(uint16_t a, uint16_t b, double frac, lc3::sim &sim, Tester &tester, do
 
 
 	// .verify ("X",...) -> "X" prints to gradescope console (prints to file which is output to gradescope)
-    uint8_t mask = verify_sum(sim, a, b);
+    uint8_t mask = verify_sum(sim, a, b, tester);
 
     std::stringstream stream;
     stream << "x6000: " << a;
@@ -58,8 +58,8 @@ void Test(uint16_t a, uint16_t b, double frac, lc3::sim &sim, Tester &tester, do
     std::string a_string = std::to_string(a);
     std::string b_string = std::to_string(b);
 
-    tester.verify("Test x6002 " + a_string, mask & 0b01, total_points * frac);
-    tester.verify("Test x6003 " + b_string, mask & 0b10, total_points * (1 - frac));
+    tester.verify("Test x6002", mask & 0b01, total_points * frac);
+    tester.verify("Test x6003", mask & 0b10, total_points * (1 - frac));
 }
 
 void testBringup(lc3::sim &sim)
