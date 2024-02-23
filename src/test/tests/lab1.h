@@ -42,7 +42,7 @@ uint8_t verify_sum(lc3::sim &sim, uint16_t a, uint16_t b, Tester &tester)
     return ret;
 }
 
-void ExampleTest(lc3::sim &sim, Tester &tester, double total_points)
+void ExampleTest_1(lc3::sim &sim, Tester &tester, double total_points)
 {
     sim.writeMem(0x6000, 0x6FA2);
     sim.writeMem(0x6001, 0xB0B7);
@@ -50,6 +50,16 @@ void ExampleTest(lc3::sim &sim, Tester &tester, double total_points)
     sim.run();
 
     tester.verify("Example 1", (verify_sum(sim, 0x6FA2, 0xB0B7, tester) & 0b11) == 0b11, total_points);
+}
+
+void ExampleTest_2(lc3::sim &sim, Tester &tester, double total_points)
+{
+    sim.writeMem(0x6000, 0xAF62);
+    sim.writeMem(0x6001, 0xB0B7);
+
+    sim.run();
+
+    tester.verify("Example 2", (verify_sum(sim, 0xAF62, 0xB0B7, tester) & 0b11) == 0b11, total_points);
 }
 
 void Test(uint16_t a, uint16_t b, double frac, lc3::sim &sim, Tester &tester, double total_points)
@@ -86,12 +96,12 @@ void testTeardown(lc3::sim &sim) {}
 
 void shutdown(void) {}
 
-void lab1_setup(uint16_t num_tests, uint16_t seed, Tester &tester, bool isPublic)
+void lab1_setup_private(uint16_t num_tests, uint16_t seed, Tester &tester, bool isPublic)
 {
     std::mt19937 mt(seed);
 
-    if (isPublic)
-        tester.registerTest("ExampleTest", ExampleTest, 1, true);
+    //if (isPublic)
+    //    tester.registerTest("ExampleTest", ExampleTest, 1, true);
 
     for (uint16_t num_test = 0; num_test < num_tests; num_test++)
     {
@@ -111,10 +121,19 @@ void lab1_setup(uint16_t num_tests, uint16_t seed, Tester &tester, bool isPublic
             tester.registerTest(test_name + "_" + stream.str(), test, 1, true);
         };
 
-        test("TestUnsigned", A & 0x00FF, B & 0x00FF, 0.8);
-        test("TestSigned", A & 0xFF00, B & 0xFF00, 0.2);
-        test("TestBoth", A, B, 0.5);
+        test("TestUnsigned", A & 0x00FF, B & 0x00FF, 1.25);
+        test("TestSigned", A & 0xFF00, B & 0xFF00, 0.5);
+        test("TestBoth", A, B, 1.25);
     }
+}
+
+void lab1_setup_public(uint16_t num_tests, uint16_t seed, Tester &tester, bool isPublic)
+{
+    std::mt19937 mt(seed);
+
+    tester.registerTest("ExampleTest 1", ExampleTest_1, 2.5, true);
+    tester.registerTest("ExampleTest 2", ExampleTest_2, 2.5, true);
+
 }
 
 #endif

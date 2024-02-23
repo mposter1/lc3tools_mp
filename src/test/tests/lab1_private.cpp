@@ -2,5 +2,5 @@
 
 void setup(Tester &tester)
 {
-    lab1_setup(1, 314, tester, false);
+    lab1_setup_private(25, 314, tester, false);
 }
