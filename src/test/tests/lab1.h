@@ -15,11 +15,13 @@ uint8_t verify_sum(lc3::sim &sim, uint16_t a, uint16_t b, Tester &tester)
     if (unsigned_sum & 0x0100)
         unsigned_sum = 0xFFFF;
 
+    /*
     tester.output("At x6002, expected " + std::to_string(unsigned_sum));
     tester.output("Got " + std::to_string(student_unsigned_sum));
 
     stream << "At x6002, expected " << std::to_string(unsigned_sum);
     stream << "Got " << std::to_string(student_unsigned_sum);
+    */
 
     ret |= 0b01 * (unsigned_sum == student_unsigned_sum);
 
@@ -27,11 +29,13 @@ uint8_t verify_sum(lc3::sim &sim, uint16_t a, uint16_t b, Tester &tester)
     if ((a & 0x8000) == (b & 0x8000) && (a & 0x8000) != (signed_sum & 0x8000))
         signed_sum = 0xFFFF;
 
+    /*
     tester.output("At x6003, expected " + std::to_string(signed_sum));
     tester.output("Got " + std::to_string(student_signed_sum));
 
     stream << "At x6003, expected " << std::to_string(signed_sum);
     stream << "Got " << std::to_string(student_signed_sum);
+    */
 
     ret |= 0b10 * (signed_sum == student_signed_sum);
 
@@ -59,12 +63,14 @@ void Test(uint16_t a, uint16_t b, double frac, lc3::sim &sim, Tester &tester, do
 	// .verify ("X",...) -> "X" prints to gradescope console (prints to file which is output to gradescope)
     uint8_t mask = verify_sum(sim, a, b, tester);
 
+    /*
     std::stringstream stream;
     stream << "x6000: " << a;
     stream << "x6001: " << b;
 
     std::string a_string = std::to_string(a);
     std::string b_string = std::to_string(b);
+    */
 
     tester.verify("Test x6002", mask & 0b01, total_points * frac);
     tester.verify("Test x6003", mask & 0b10, total_points * (1 - frac));
