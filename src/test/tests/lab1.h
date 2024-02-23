@@ -13,11 +13,17 @@ uint8_t verify_sum(lc3::sim &sim, uint16_t a, uint16_t b)
     uint16_t unsigned_sum = (a & 0x00FF) + (b & 0x00FF), student_unsigned_sum = sim.readMem(0x6002);
     if (unsigned_sum & 0x0100)
         unsigned_sum = 0xFFFF;
+
+    stream << "At x6002, expected " << unsigned_sum;
+    stream << "Got " << student_unsigned_sum;
     ret |= 0b01 * (unsigned_sum == student_unsigned_sum);
 
     uint16_t signed_sum = ((a >> 8) + (b >> 8)) << 8, student_signed_sum = sim.readMem(0x6003);
     if ((a & 0x8000) == (b & 0x8000) && (a & 0x8000) != (signed_sum & 0x8000))
         signed_sum = 0xFFFF;
+
+    stream << "At x6003, expected " << signed_sum;
+    stream << "Got " << student_signed_sum;
     ret |= 0b10 * (signed_sum == student_signed_sum);
 
     return ret;
@@ -43,6 +49,8 @@ void Test(uint16_t a, uint16_t b, double frac, lc3::sim &sim, Tester &tester, do
 
 	// .verify ("X",...) -> "X" prints to gradescope console (prints to file which is output to gradescope)
     uint8_t mask = verify_sum(sim, a, b);
+    stream << "x6000: " << a;
+    stream << "x6001: " << b;
     tester.verify("Test x6002", mask & 0b01, total_points * frac);  
     tester.verify("Test x6003", mask & 0b10, total_points * (1 - frac));
 }
