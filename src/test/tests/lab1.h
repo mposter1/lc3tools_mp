@@ -17,6 +17,10 @@ uint8_t verify_sum(lc3::sim &sim, uint16_t a, uint16_t b, Tester &tester)
 
     tester.output("At x6002, expected " + std::to_string(unsigned_sum));
     tester.output("Got " + std::to_string(student_unsigned_sum));
+
+    stream << "At x6002, expected " << std::to_string(unsigned_sum);
+    stream << "Got " << std::to_string(student_unsigned_sum);
+
     ret |= 0b01 * (unsigned_sum == student_unsigned_sum);
 
     uint16_t signed_sum = ((a >> 8) + (b >> 8)) << 8, student_signed_sum = sim.readMem(0x6003);
@@ -25,6 +29,10 @@ uint8_t verify_sum(lc3::sim &sim, uint16_t a, uint16_t b, Tester &tester)
 
     tester.output("At x6003, expected " + std::to_string(signed_sum));
     tester.output("Got " + std::to_string(student_signed_sum));
+
+    stream << "At x6003, expected " << std::to_string(signed_sum);
+    stream << "Got " << std::to_string(student_signed_sum);
+
     ret |= 0b10 * (signed_sum == student_signed_sum);
 
     return ret;
