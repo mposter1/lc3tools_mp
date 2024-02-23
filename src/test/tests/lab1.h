@@ -118,7 +118,7 @@ void lab1_setup_private(uint16_t num_tests, uint16_t seed, Tester &tester, bool 
 
             auto test = [a, b, frac](lc3::sim &sim, Tester &tester, double total_points)
             { Test(a, b, frac, sim, tester, total_points); };
-            tester.registerTest(test_name + "_" + stream.str(), test, 1, true);
+            tester.registerTest(test_name + "_" + stream.str(), test, 1*frac, true);
         };
 
         test("TestUnsigned", A & 0x00FF, B & 0x00FF, 1.25);
@@ -131,8 +131,8 @@ void lab1_setup_public(uint16_t num_tests, uint16_t seed, Tester &tester, bool i
 {
     std::mt19937 mt(seed);
 
-    tester.registerTest("ExampleTest 1", ExampleTest_1, 2.5, true);
-    tester.registerTest("ExampleTest 2", ExampleTest_2, 2.5, true);
+    tester.registerTest("ExampleTest 1 - Randomized", ExampleTest_1, 2.5, true);
+    tester.registerTest("ExampleTest 2 - Randomized", ExampleTest_2, 2.5, true);
 
 }
 
