@@ -116,7 +116,7 @@ void lab1_setup_private(uint16_t num_tests, uint16_t seed, Tester &tester, bool 
             stream << "_";
             stream << "0x" << std::setfill('0') << std::setw(sizeof(uint16_t) * 2) << b;
 
-            frac = 0.5;
+            double frac = 0.5;
             auto test = [a, b, frac](lc3::sim &sim, Tester &tester, double total_points)
             { Test(a, b, frac, sim, tester, total_points); };
             tester.registerTest(test_name + "_" + stream.str(), test, weight, true);
