@@ -3,6 +3,7 @@
 
 #define API_VER 2
 #include "framework.h"
+#include "framework_common.h"
 #include <random>
 #include <iomanip>
 
@@ -32,6 +33,11 @@ uint8_t verify_sum(lc3::sim &sim, uint16_t a, uint16_t b, Tester &tester)
 
     stream << "At x6003, expected " << std::to_string(signed_sum);
     stream << "Got " << std::to_string(student_signed_sum);
+
+    printf("At x6003, expected " + std::to_string(signed_sum));
+    printf("Got " + std::to_string(student_signed_sum));
+
+    frame
 
     ret |= 0b10 * (signed_sum == student_signed_sum);
 
