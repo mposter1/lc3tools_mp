@@ -8,6 +8,7 @@
 
 uint8_t verify_sum(lc3::sim &sim, uint16_t a, uint16_t b)
 {
+    std::stringstream stream;
     uint8_t ret = 0b00;
 
     uint16_t unsigned_sum = (a & 0x00FF) + (b & 0x00FF), student_unsigned_sum = sim.readMem(0x6002);
@@ -49,8 +50,11 @@ void Test(uint16_t a, uint16_t b, double frac, lc3::sim &sim, Tester &tester, do
 
 	// .verify ("X",...) -> "X" prints to gradescope console (prints to file which is output to gradescope)
     uint8_t mask = verify_sum(sim, a, b);
+
+    std::stringstream stream;
     stream << "x6000: " << a;
     stream << "x6001: " << b;
+
     tester.verify("Test x6002", mask & 0b01, total_points * frac);  
     tester.verify("Test x6003", mask & 0b10, total_points * (1 - frac));
 }
