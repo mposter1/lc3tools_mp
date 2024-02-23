@@ -1,0 +1,67 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Vim swap files
+*.swp
+
+# Flex and Bison generated files
+*.tab.c
+*.tab.h
+lex.yy.c
+
+# Ignore build directory
+build/*
+x64/*
+.vs/
+
+# Ignore test cases
+*.asm
+
+# Ignore generated files
+backend/src/parser_gen/*
+backend/src/configured_paths.h
+
+# Ignore GUI files
+frontend/gui/setup_token.sh
+frontend/gui/.DS_Store
+frontend/gui/dist/electron/*
+frontend/gui/dist/web/*
+frontend/gui/build/*
+frontend/gui/!build/icons
+frontend/gui/node_modules/
+frontend/gui/npm-debug.log
+frontend/gui/npm-debug.log.*
+frontend/gui/thumbs.db
+frontend/gui/!.gitkeep
+frontend/gui/local_modules/lc3interface/build/
+frontend/gui/local_modules/lc3interface/build/
+
+.vscode/settings.json
+__pycache__
+.DS_Store
