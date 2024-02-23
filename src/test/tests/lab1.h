@@ -55,11 +55,11 @@ void Test(uint16_t a, uint16_t b, double frac, lc3::sim &sim, Tester &tester, do
     stream << "x6000: " << a;
     stream << "x6001: " << b;
 
-    //string a_string = std::to_string(a)
-    //string b_string = std::to_string(b)
+    std::string a_string = std::to_string(a);
+    std::string b_string = std::to_string(b);
 
-    tester.verify("Test x6002", mask & 0b01, total_points * frac);
-    tester.verify("Test x6003", mask & 0b10, total_points * (1 - frac));
+    tester.verify("Test x6002 " + a_string, mask & 0b01, total_points * frac);
+    tester.verify("Test x6003 " + b_string, mask & 0b10, total_points * (1 - frac));
 }
 
 void testBringup(lc3::sim &sim)
