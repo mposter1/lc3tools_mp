@@ -10,12 +10,12 @@ uint8_t verify_sum(lc3::sim &sim, uint16_t a, uint16_t b)
 {
     uint8_t ret = 0b00;
 
-    uint16_t unsigned_sum = (a & 0x00FF) + (b & 0x00FF), student_unsigned_sum = sim.readMem(0x3502);
+    uint16_t unsigned_sum = (a & 0x00FF) + (b & 0x00FF), student_unsigned_sum = sim.readMem(0x6002);
     if (unsigned_sum & 0x0100)
         unsigned_sum = 0xFFFF;
     ret |= 0b01 * (unsigned_sum == student_unsigned_sum);
 
-    uint16_t signed_sum = ((a >> 8) + (b >> 8)) << 8, student_signed_sum = sim.readMem(0x3503);
+    uint16_t signed_sum = ((a >> 8) + (b >> 8)) << 8, student_signed_sum = sim.readMem(0x6003);
     if ((a & 0x8000) == (b & 0x8000) && (a & 0x8000) != (signed_sum & 0x8000))
         signed_sum = 0xFFFF;
     ret |= 0b10 * (signed_sum == student_signed_sum);
@@ -25,8 +25,8 @@ uint8_t verify_sum(lc3::sim &sim, uint16_t a, uint16_t b)
 
 void ExampleTest(lc3::sim &sim, Tester &tester, double total_points)
 {
-    sim.writeMem(0x3500, 0x6FA2);
-    sim.writeMem(0x3501, 0xB0B7);
+    sim.writeMem(0x6000, 0x6FA2);
+    sim.writeMem(0x6001, 0xB0B7);
 
     sim.run();
 
@@ -35,19 +35,21 @@ void ExampleTest(lc3::sim &sim, Tester &tester, double total_points)
 
 void Test(uint16_t a, uint16_t b, double frac, lc3::sim &sim, Tester &tester, double total_points)
 {
-    sim.writeMem(0x3500, a);
-    sim.writeMem(0x3501, b);
+    sim.writeMem(0x6000, a);
+    sim.writeMem(0x6001, b);
 
     sim.run();
 
+
+	// .verify ("X",...) -> "X" prints to gradescope console (prints to file which is output to gradescope)
     uint8_t mask = verify_sum(sim, a, b);
-    tester.verify("Test x3502", mask & 0b01, total_points * frac);
-    tester.verify("Test x3503", mask & 0b10, total_points * (1 - frac));
+    tester.verify("Test x6002", mask & 0b01, total_points * frac);  
+    tester.verify("Test x6003", mask & 0b10, total_points * (1 - frac));
 }
 
 void testBringup(lc3::sim &sim)
 {
-    sim.writePC(0x3000);
+    sim.writePC(0x6000);
     sim.setRunInstLimit(1000);
 }
 
