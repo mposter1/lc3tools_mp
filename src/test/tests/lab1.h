@@ -37,8 +37,6 @@ uint8_t verify_sum(lc3::sim &sim, uint16_t a, uint16_t b, Tester &tester)
     //printf("At x6003, expected " + std::to_string(signed_sum));
     //printf("Got " + std::to_string(student_signed_sum));
 
-    frame
-
     ret |= 0b10 * (signed_sum == student_signed_sum);
 
     return ret;
