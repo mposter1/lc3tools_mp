@@ -117,8 +117,8 @@ void lab1_setup_private(uint16_t num_tests, uint16_t seed, Tester &tester, bool 
             stream << "0x" << std::setfill('0') << std::setw(sizeof(uint16_t) * 2) << b;
 
             auto test = [a, b, frac](lc3::sim &sim, Tester &tester, double total_points)
-            { Test(a, b, 1*frac, sim, tester, total_points); };
-            tester.registerTest(test_name + "_" + stream.str(), test, 1*frac, true);
+            { Test(a, b, 1, sim, tester, total_points); };
+            tester.registerTest(test_name + "_" + stream.str(), test, frac, true);
         };
 
         test("TestUnsigned", A & 0x00FF, B & 0x00FF, 1.25);
