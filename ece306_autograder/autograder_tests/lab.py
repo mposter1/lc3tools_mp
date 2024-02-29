@@ -26,7 +26,7 @@ class TestLab(unittest.TestCase):
                 lines = lines.splitlines()
                 for line in lines:
                     line_items = line.split()
-                    if line_items[0] == "Test:"
+                    if line_items[0] == "Test:":
                         print(line)
                 #print(lines[0])
                 if lines[-1].startswith('Total points earned:'):
