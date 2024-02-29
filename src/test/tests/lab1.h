@@ -82,24 +82,24 @@ void TestEmpty(lc3::sim &sim, Tester &tester, double total_points)
     tester.verify("TestEmpty", (verify_sum(sim, 0x0000, 0x0000, tester) & 0b11) == 0b11, total_points);
 }
 
-void TestClearing1(lc3::sim &sim, Tester &tester, double total_points)
+void TestClearingA(lc3::sim &sim, Tester &tester, double total_points)
 {
     sim.writeMem(0x6000, 0x01FF);
     sim.writeMem(0x6001, 0x00FF);
 
     sim.run();
 
-    tester.verify("TestClearing1", (verify_sum(sim, 0x01FF, 0x00FF, tester) & 0b11) == 0b11, total_points);
+    tester.verify("TestClearingA", (verify_sum(sim, 0x01FF, 0x00FF, tester) & 0b11) == 0b11, total_points);
 }
 
-void TestClearing2(lc3::sim &sim, Tester &tester, double total_points)
+void TestClearingB(lc3::sim &sim, Tester &tester, double total_points)
 {
     sim.writeMem(0x6000, 0xF8F0);
     sim.writeMem(0x6001, 0xF7F0);
 
     sim.run();
 
-    tester.verify("TestClearing2", (verify_sum(sim, 0xF8F0, 0xF7F0, tester) & 0b11) == 0b11, total_points);
+    tester.verify("TestClearingB", (verify_sum(sim, 0xF8F0, 0xF7F0, tester) & 0b11) == 0b11, total_points);
 }
 
 void TestUnsignedMischief(lc3::sim &sim, Tester &tester, double total_points)
@@ -152,11 +152,11 @@ void lab1_setup_private(uint16_t num_tests, uint16_t seed, Tester &tester, bool 
 
     //if (isPublic)
     //    tester.registerTest("ExampleTest", ExampleTest, 1, true);
-    //tester.registerTest("TestFull",TestFull,1,true)
-    //tester.registerTest("TestEmpty",TestEmpty,1,true)
-    //tester.registerTest("TestClearing1",TestClearing1,2,true)
-    //tester.registerTest("TestClearing2",TestClearing2,2,true)
-    //tester.registerTest("TestUnsignedMischief",TestUnsignedMischief,4,true)
+    tester.registerTest("TestFull",TestFull,1,true);
+    tester.registerTest("TestEmpty",TestEmpty,1,true);
+    tester.registerTest("TestClearingA",TestClearingA,2,true);
+    tester.registerTest("TestClearingB",TestClearingB,2,true);
+    tester.registerTest("TestUnsignedMischief",TestUnsignedMischief,4,true);
 
     for (uint16_t num_test = 0; num_test < num_tests; num_test++)
     {
