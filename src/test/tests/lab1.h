@@ -62,6 +62,56 @@ void ExampleTest_2(lc3::sim &sim, Tester &tester, double total_points)
     tester.verify("Example 2", (verify_sum(sim, 0xAF62, 0xB0B7, tester) & 0b11) == 0b11, total_points);
 }
 
+void TestFull(lc3::sim &sim, Tester &tester, double total_points)
+{
+    sim.writeMem(0x6000, 0xFFFF);
+    sim.writeMem(0x6001, 0xFFFF);
+
+    sim.run();
+
+    tester.verify("TestFull", (verify_sum(sim, 0xFFFF, 0xFFFF, tester) & 0b11) == 0b11, total_points);
+}
+
+void TestEmpty(lc3::sim &sim, Tester &tester, double total_points)
+{
+    sim.writeMem(0x6000, 0x0000);
+    sim.writeMem(0x6001, 0x0000);
+
+    sim.run();
+
+    tester.verify("TestEmpty", (verify_sum(sim, 0x0000, 0x0000, tester) & 0b11) == 0b11, total_points);
+}
+
+void TestClearing1(lc3::sim &sim, Tester &tester, double total_points)
+{
+    sim.writeMem(0x6000, 0x01FF);
+    sim.writeMem(0x6001, 0x00FF);
+
+    sim.run();
+
+    tester.verify("TestClearing1", (verify_sum(sim, 0x01FF, 0x00FF, tester) & 0b11) == 0b11, total_points);
+}
+
+void TestClearing2(lc3::sim &sim, Tester &tester, double total_points)
+{
+    sim.writeMem(0x6000, 0xF8F0);
+    sim.writeMem(0x6001, 0xF7F0);
+
+    sim.run();
+
+    tester.verify("TestClearing2", (verify_sum(sim, 0xF8F0, 0xF7F0, tester) & 0b11) == 0b11, total_points);
+}
+
+void TestUnsignedMischief(lc3::sim &sim, Tester &tester, double total_points)
+{
+    sim.writeMem(0x6000, 0xFF80);
+    sim.writeMem(0x6001, 0x0180);
+
+    sim.run();
+
+    tester.verify("TestUnsignedMischief", (verify_sum(sim, 0xFF80, 0x0180, tester) & 0b11) == 0b11, total_points);
+}
+
 void Test(uint16_t a, uint16_t b, double frac, lc3::sim &sim, Tester &tester, double total_points)
 {
     sim.writeMem(0x6000, a);
@@ -102,6 +152,11 @@ void lab1_setup_private(uint16_t num_tests, uint16_t seed, Tester &tester, bool 
 
     //if (isPublic)
     //    tester.registerTest("ExampleTest", ExampleTest, 1, true);
+    tester.registerTest("TestFull",TestFull,1,true)
+    tester.registerTest("TestEmpty",TestEmpty,1,true)
+    tester.registerTest("TestClearing1",TestClearing1,2,true)
+    tester.registerTest("TestClearing2",TestClearing2,2,true)
+    tester.registerTest("TestUnsignedMischief",TestUnsignedMischief,4,true)
 
     for (uint16_t num_test = 0; num_test < num_tests; num_test++)
     {
@@ -122,8 +177,8 @@ void lab1_setup_private(uint16_t num_tests, uint16_t seed, Tester &tester, bool 
             tester.registerTest(test_name + "_" + stream.str(), test, weight, true);
         };
 
-        test("TestUnsigned", A & 0x00FF, B & 0x00FF, 1.0);
-        test("TestSigned", A & 0xFF00, B & 0xFF00, 0.5);
+        test("TestUnsigned", A & 0x00FF, B & 0x00FF, 0.75);
+        test("TestSigned", A & 0xFF00, B & 0xFF00, 0.75);
         test("TestBoth", A, B, 1.5);
     }
 }
@@ -132,9 +187,32 @@ void lab1_setup_public(uint16_t num_tests, uint16_t seed, Tester &tester, bool i
 {
     std::mt19937 mt(seed);
 
-    tester.registerTest("ExampleTest 1 - Randomized", ExampleTest_1, 2.5, true);
-    tester.registerTest("ExampleTest 2 - Randomized", ExampleTest_2, 2.5, true);
+    tester.registerTest("ExampleTest 1 - Randomized", ExampleTest_1, 3.5, true);
+    tester.registerTest("ExampleTest 2 - Randomized", ExampleTest_2, 3.5, true);
 
+    for (uint16_t num_test = 0; num_test < num_tests; num_test++)
+    {
+        uint16_t A = mt() % 0x10000, B = mt() % 0x10000;
+        std::stringstream stream;
+        stream << std::hex << std::uppercase;
+
+        auto test = [&stream, &tester](std::string test_name, uint16_t a, uint16_t b, double weight)
+        {
+            stream.str("");
+            stream << "0x" << std::setfill('0') << std::setw(sizeof(uint16_t) * 2) << a;
+            stream << "_";
+            stream << "0x" << std::setfill('0') << std::setw(sizeof(uint16_t) * 2) << b;
+
+            double frac = 0.5;
+            auto test = [a, b, frac](lc3::sim &sim, Tester &tester, double total_points)
+            { Test(a, b, frac, sim, tester, total_points); };
+            tester.registerTest(test_name + "_" + stream.str(), test, weight, true);
+        };
+
+        test("TestUnsigned", A & 0x00FF, B & 0x00FF, 0.75);
+        test("TestSigned", A & 0xFF00, B & 0xFF00, 0.75);
+        test("TestBoth", A, B, 1.5);
+    }
 }
 
 #endif
