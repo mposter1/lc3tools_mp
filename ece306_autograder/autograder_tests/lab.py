@@ -24,10 +24,11 @@ class TestLab(unittest.TestCase):
                 lines = f.read()
                 #print(lines)
                 lines = lines.splitlines()
-                for line in lines:
+                for li,line in enumerate(lines):
                     line_items = line.split()
                     if line_items[0] == "Test:":
-                        print(line)
+                        points_earned = lines[2].split()[3]
+                        print(line[:line.index("(")] + points_earned)
                 #print(lines[0])
                 if lines[-1].startswith('Total points earned:'):
                     print(lines[-1])

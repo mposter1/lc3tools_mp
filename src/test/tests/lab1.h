@@ -177,9 +177,9 @@ void lab1_setup_private(uint16_t num_tests, uint16_t seed, Tester &tester, bool 
             tester.registerTest(test_name, test, weight, true);
         };
 
-        test("TestUnsigned", A & 0x00FF, B & 0x00FF, 0.75);
-        test("TestSigned", A & 0xFF00, B & 0xFF00, 0.75);
-        test("TestBoth", A, B, 1.5);
+        test("TestUnsignedRandom", A & 0x00FF, B & 0x00FF, 0.75);
+        test("TestSignedRandom", A & 0xFF00, B & 0xFF00, 0.75);
+        test("TestBothRandom", A, B, 1.5);
     }
 }
 
