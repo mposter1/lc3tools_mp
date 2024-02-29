@@ -24,7 +24,11 @@ class TestLab(unittest.TestCase):
                 lines = f.read()
                 #print(lines)
                 lines = lines.splitlines()
-                print(lines[0])
+                for line in lines:
+                    line_items = line.split()
+                    if line_items[0] == "Test:"
+                        print(line)
+                #print(lines[0])
                 if lines[-1].startswith('Total points earned:'):
                     print(lines[-1])
                     return float(lines[-1].split()[-1][1:-2])
