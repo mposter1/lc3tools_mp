@@ -4,7 +4,7 @@ from gradescope_utils.autograder_utils.decorators import partial_credit, visibil
 
 class TestLab(unittest.TestCase):
     def _get_score_public(self, file):
-        print(file)
+        #print(file)
         try:
             with open(file, 'r') as f:
                 lines = f.read()
@@ -22,7 +22,7 @@ class TestLab(unittest.TestCase):
         try:
             with open(file, 'r') as f:
                 lines = f.read()
-                #print(lines)
+                print(lines)
                 lines = lines.splitlines()
                 if lines[-1].startswith('Total points earned:'):
                     return float(lines[-1].split()[-1][1:-2])
