@@ -1,4 +1,4 @@
-lab=$1
+lab=$2
 
 /autograder/source/lc3tools_mp/build/bin/./${lab}_private /autograder/submission/$lab.asm > /autograder/submission/private.out
 /autograder/source/lc3tools_mp/build/bin/./${lab}_public /autograder/submission/$lab.asm > /autograder/submission/public.out

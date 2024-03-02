@@ -8,8 +8,8 @@
 
 void Test(uint16_t addr1, uint16_t addr2, uint16_t val, lc3::sim &sim, Tester &tester, double total_points)
 {
-    sim.writeMem(0x4000, addr1);
-    sim.writeMem(0x4001, addr2);
+    sim.writeMem(0x6000, addr1);
+    sim.writeMem(0x6001, addr2);
     sim.writeMem(addr1, val);
 
     sim.run();
@@ -37,8 +37,8 @@ void lab2_setup(uint16_t num_tests, uint16_t seed, Tester &tester, bool includeC
     for (uint16_t num_test = 0; num_test < num_tests; num_test++)
     {
         uint16_t num = mt() % 0x10000;
-        uint16_t addr1 = 0x4002 + (mt() % 0xBDFE);
-        uint16_t addr2 = 0x4002 + (mt() % 0xBDFE);
+        uint16_t addr1 = 0x6002 + (mt() % 0xBDFE);
+        uint16_t addr2 = 0x6002 + (mt() % 0xBDFE);
         if (includeCornerCases && (num_test & 0b10))
             addr2 = addr1;
         std::stringstream stream;
