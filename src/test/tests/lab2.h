@@ -44,9 +44,10 @@ void lab2_setup_private(uint16_t num_tests, uint16_t seed, Tester &tester, bool 
         uint16_t addr1 = 0x6002 + (mt() % 0x8DFE);
         uint16_t addr2 = 0x6002 + (mt() % 0x8DFE);
         std::stringstream stream;
-        if (includeCornerCases && (num_test & 0b10))
+        if (includeCornerCases && (num_test & 0b10)){
             addr2 = addr1;
             stream << "Overloaded_Addresses";
+        }
         else{
             stream << "Random_Addresses";
         }
