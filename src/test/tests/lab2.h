@@ -40,8 +40,8 @@ void lab2_setup(uint16_t num_tests, uint16_t seed, Tester &tester, bool includeC
     for (uint16_t num_test = 0; num_test < num_tests; num_test++)
     {
         uint16_t num = mt() % 0x10000;
-        uint16_t addr1 = 0x6002 + (mt() % 0xBDFE);
-        uint16_t addr2 = 0x6002 + (mt() % 0xBDFE);
+        uint16_t addr1 = 0x6002 + (mt() & 0x0000FFFF)*(0xFFFF - 0x6002);
+        uint16_t addr2 = 0x6002 + (mt() & 0x0000FFFF)*(0xFFFF - 0x6002);
         if (includeCornerCases && (num_test & 0b10))
             addr2 = addr1;
         std::stringstream stream;
