@@ -15,7 +15,7 @@ void Test(uint16_t addr1, uint16_t addr2, uint16_t val, lc3::sim &sim, Tester &t
     sim.run();
 
     uint16_t student_sum = sim.readMem(addr2);
-    uint16_t expected_sum = (val & 0x000000FF) + ((val & & 0x0000FF00) >> 8);
+    uint16_t expected_sum = (val & 0xFF) + ((val >> 8) & 0xFF);
 
     tester.output("At x" + std::to_string(addr2) + ", expected " + std::to_string(expected_sum));
     tester.output("Got " + std::to_string(student_sum));
@@ -40,8 +40,8 @@ void lab2_setup(uint16_t num_tests, uint16_t seed, Tester &tester, bool includeC
     for (uint16_t num_test = 0; num_test < num_tests; num_test++)
     {
         uint16_t num = mt() % 0x10000;
-        uint16_t addr1 = 0x6002 + (mt() & 0x0000FFFF)*(0xFFFF - 0x6002);
-        uint16_t addr2 = 0x6002 + (mt() & 0x0000FFFF)*(0xFFFF - 0x6002);
+        uint16_t addr1 = 0x6002 + (mt() % 0xBDFE);
+        uint16_t addr2 = 0x6002 + (mt() % 0xBDFE);
         if (includeCornerCases && (num_test & 0b10))
             addr2 = addr1;
         std::stringstream stream;
