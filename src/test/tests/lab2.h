@@ -15,7 +15,7 @@ void Test(uint16_t addr1, uint16_t addr2, uint16_t val, lc3::sim &sim, Tester &t
     sim.run();
 
     uint16_t student_sum = sim.readMem(addr2);
-    uint16_t expected_sum = (val & 0xFF) + ((val >> 8) & 0xFF);
+    uint16_t expected_sum = (val & 0x000000FF) + ((val & & 0x0000FF00) >> 8);
 
     tester.output("At x" + std::to_string(addr2) + ", expected " + std::to_string(expected_sum));
     tester.output("Got " + std::to_string(student_sum));
