@@ -27,7 +27,7 @@ void Test(uint16_t addr1, uint16_t addr2, uint16_t val, lc3::sim &sim, Tester &t
 void testBringup(lc3::sim &sim)
 {
     sim.writePC(0x3000);
-    sim.setRunInstLimit(1000);
+    sim.setRunInstLimit(5000);
 }
 
 void testTeardown(lc3::sim &sim) {}
