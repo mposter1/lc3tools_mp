@@ -65,3 +65,4 @@ frontend/gui/local_modules/lc3interface/build/
 .vscode/settings.json
 __pycache__
 .DS_Store
+.idea
