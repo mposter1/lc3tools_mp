@@ -26,7 +26,7 @@ class TestLab(unittest.TestCase):
                 #print(lines)
                 lines = lines.splitlines()
 
-                """
+
                 for li,line in enumerate(lines):
                     line_items = line.split()
                     if line_items[0] == "Test:":
@@ -36,7 +36,7 @@ class TestLab(unittest.TestCase):
                         points_earned = lines[line_temp_index].split()[3]
                         print(line[:line.index("(")] + points_earned)
                 #print(lines[0])
-                """
+
 
 
                 if lines[-1].startswith('Total points earned:'):
