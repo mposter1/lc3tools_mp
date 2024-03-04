@@ -14,7 +14,8 @@ class TestLab(unittest.TestCase):
                     return float(lines[-1].split()[-1][1:-2])
                 else:
                     return 0.0
-        except:
+        except Exception as e:
+            print(e)
             return 0.0
 
     def _get_score_private(self, file):
@@ -43,7 +44,8 @@ class TestLab(unittest.TestCase):
                     return float(lines[-1].split()[-1][1:-2])
                 else:
                     return 0.0
-        except:
+        except Exception as e:
+            print(e)
             return 0.0
 
     @partial_credit(40)

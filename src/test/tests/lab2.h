@@ -3,6 +3,7 @@
 
 #define API_VER 2
 #include "framework.h"
+#include <fmt/core.h>
 #include <random>
 #include <iomanip>
 
@@ -17,11 +18,9 @@ void Test(uint16_t addr1, uint16_t addr2, uint16_t val, lc3::sim &sim, Tester &t
     uint16_t student_sum = sim.readMem(addr2);
     uint16_t expected_sum = (val & 0xFF) + ((val >> 8) & 0xFF);
 
-
-    tester.output("At x" + std::to_string(addr2) + ", expected " + std::to_string(expected_sum));
-    tester.output("Got " + std::to_string(student_sum));
-    tester.output("Was given addr1=" + std::to_string(addr1) + ", which stored a value of " + std::to_string(val));
-
+    tester.output("At x" + fmt::format("{:#x}", addr1) + ", expected " + fmt::format("{:#x}",expected_sum));
+    tester.output("Got " + fmt::format("{:#x}", student_sum));
+    tester.output("Was given addr1=" + fmt::format("{:#x}",addr1) + ", which stored a value of " + fmt::format("{:#x}",val));
 
     tester.verify("Test", student_sum == expected_sum, total_points);
 
@@ -30,7 +29,7 @@ void Test(uint16_t addr1, uint16_t addr2, uint16_t val, lc3::sim &sim, Tester &t
 void testBringup(lc3::sim &sim)
 {
     sim.writePC(0x3000);
-    sim.setRunInstLimit(5000);
+    //sim.setRunInstLimit(5000);
 }
 
 void testTeardown(lc3::sim &sim) {}
