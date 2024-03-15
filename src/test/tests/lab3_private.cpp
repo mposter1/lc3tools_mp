@@ -4,7 +4,7 @@ void setup(Tester &tester)
 {
     std::mt19937 mt(0x1000);
 
-    gen_random(10, mt, tester);
+    gen_random(6, mt, tester);
 
     for (uint16_t i = 0; i < 5; i++)
     {
@@ -15,7 +15,7 @@ void setup(Tester &tester)
         }, 1, true);
     }
 
-    for (uint16_t i = 0; i < 10; i++)
+    for (uint16_t i = 0; i < 8; i++)
     {
         std::vector<uint16_t> array = gen_array(MAX_SIZE - 1, mt);
         uint16_t terminator = mt() % MAX_SIZE;
@@ -34,7 +34,7 @@ void setup(Tester &tester)
         }, 1, true);
     }
 
-    for (uint16_t i = 0; i < 10; i++)
+    for (uint16_t i = 0; i < 8; i++)
     {
         std::vector<uint16_t> array = gen_array(mt() % MAX_SIZE, mt);
         std::sort(array.rbegin(), array.rend(), [](uint16_t a, uint16_t b) { return (a & 0xFF) < (b & 0xFF); });
@@ -44,7 +44,7 @@ void setup(Tester &tester)
         }, 1, true);
     }
 
-    for (uint16_t i = 0; i < 10; i++)
+    for (uint16_t i = 0; i < 8; i++)
     {
         std::vector<uint16_t> array = gen_array(mt() % MAX_SIZE, mt);
         uint16_t val = mt() % MAX_SIZE;

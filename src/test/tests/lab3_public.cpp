@@ -3,5 +3,5 @@
 void setup(Tester &tester)
 {
     std::mt19937 mt(0);
-    gen_random(30, mt, tester);
+    gen_random(40, mt, tester);
 }
