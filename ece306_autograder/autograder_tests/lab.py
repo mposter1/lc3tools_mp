@@ -23,7 +23,7 @@ class TestLab(unittest.TestCase):
         try:
             with open(file, 'r') as f:
                 lines = f.read()
-                print(lines)
+                #print(lines)
                 lines = lines.splitlines()
 
 
