@@ -116,7 +116,7 @@ void testTeardown(lc3::sim &sim) {}
 
 void shutdown(void) {}
 
-void lab1_setup_private(uint16_t num_tests, uint16_t seed, Tester &tester, bool isPublic)
+void exam2_setup_private(uint16_t num_tests, uint16_t seed, Tester &tester, bool isPublic)
 {
     std::mt19937 mt(seed);
 
@@ -155,7 +155,7 @@ void lab1_setup_private(uint16_t num_tests, uint16_t seed, Tester &tester, bool 
     */
 }
 
-void lab1_setup_public(uint16_t num_tests, uint16_t seed, Tester &tester, bool isPublic)
+void exam2_setup_public(uint16_t num_tests, uint16_t seed, Tester &tester, bool isPublic)
 {
     std::mt19937 mt(seed);
 

@@ -1,6 +1,6 @@
-#include "lab1.h"
+#include "exam2.h"
 
 void setup(Tester &tester)
 {
-    lab1_setup_private(1, 314, tester, false);
+    exam2_setup_private(1, 314, tester, false);
 }
