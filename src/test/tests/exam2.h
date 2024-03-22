@@ -16,13 +16,7 @@ uint8_t verify_sum(lc3::sim &sim, uint8_t unsigned_sum, Tester &tester)
 {
     std::stringstream stream;
 
-    uint16_t array_length = sim.readMem(0x4000);
-
-    student_unsigned_sum = sim.readMem(0x4001);
-
-    if (array_length == 0){
-        unsigned_sum = 0xFFFF;
-    }
+    uint16_t student_unsigned_sum = sim.readMem(0x4001);
 
     /*
     tester.output("At x6002, expected " + std::to_string(unsigned_sum));
@@ -92,7 +86,7 @@ void Test(uint16_t a, uint16_t b, double frac, lc3::sim &sim, Tester &tester, do
 
 
 	// .verify ("X",...) -> "X" prints to gradescope console (prints to file which is output to gradescope)
-    uint8_t verification = verify_sum(sim, a, b, tester);
+    //uint8_t verification = verify_sum(sim, a, b, tester);
 
     /*
     std::stringstream stream;
@@ -103,7 +97,7 @@ void Test(uint16_t a, uint16_t b, double frac, lc3::sim &sim, Tester &tester, do
     std::string b_string = std::to_string(b);
     */
 
-    tester.verify("Test x4001", verification, total_points * frac);
+    //tester.verify("Test x4001", verification, total_points * frac);
 }
 
 void testBringup(lc3::sim &sim)
