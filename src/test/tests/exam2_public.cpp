@@ -2,5 +2,5 @@
 
 void setup(Tester &tester)
 {
-    exam2_setup_public(1, 42, tester, true);
+    exam2_setup_public(5, 42, tester, true);
 }
