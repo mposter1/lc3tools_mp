@@ -94,11 +94,8 @@ std::vector<uint16_t> gen_array(uint16_t size, std::mt19937 &mt)
 
 
 
-void TestRandom(lc3::sim &sim, Tester &tester, double total_points, std::mt19937 mt)
+void TestRandom(lc3::sim &sim, Tester &tester, double total_points, std::vector<uint16_t> array)
 {
-
-    // Create an array to store random numbers
-    std::vector<uint16_t> array = gen_array(mt() % MAX_SIZE, mt);
 
     for (auto num : array)
         std::cout << std::hex << std::setfill('0') << std::setw(sizeof(uint16_t) * 2) << num << " ";
@@ -151,11 +148,14 @@ void exam2_setup_private(uint16_t num_tests, uint16_t seed, Tester &tester, bool
         std::stringstream stream;
         stream << std::hex << std::uppercase;
 
+        // Create an array to store random numbers
+        std::vector<uint16_t> array = gen_array(mt() % MAX_SIZE, mt);
+
         tester.registerTest("All Ones", TestOnes, 2.5, true);
         tester.registerTest("Empty", TestEmpty, 2.5, true);
         tester.registerTest("All Zeros", TestZeros, 2.5, true);
-        tester.registerTest("Random", [mt](lc3::sim &sim, Tester &tester, double total_points){
-            TestRandom(sim,tester,total_points,mt);}
+        tester.registerTest("Random", [array](lc3::sim &sim, Tester &tester, double total_points){
+            TestRandom(sim,tester,total_points,array);}
             , 2.5, true);
 
     }
@@ -171,11 +171,14 @@ void exam2_setup_public(uint16_t num_tests, uint16_t seed, Tester &tester, bool 
         std::stringstream stream;
         stream << std::hex << std::uppercase;
 
+        // Create an array to store random numbers
+        std::vector<uint16_t> array = gen_array(mt() % MAX_SIZE, mt);
+
         //tester.registerTest("All Ones", TestOnes, 2.5, true);
         //tester.registerTest("Empty", TestEmpty, 2.5, true);
         //tester.registerTest("All Zeros", TestZeros, 2.5, true);
-        tester.registerTest("Random", [mt](lc3::sim &sim, Tester &tester, double total_points){
-                                TestRandom(sim,tester,total_points,mt);}
+        tester.registerTest("Random", [array](lc3::sim &sim, Tester &tester, double total_points){
+                                TestRandom(sim,tester,total_points,array);}
                 , 2.5, true);
 
     }
