@@ -2,5 +2,5 @@
 
 void setup(Tester &tester)
 {
-    exam2_setup_private(20, 314, tester, false);
+    exam2_setup_private(5, 314, tester, false);
 }
