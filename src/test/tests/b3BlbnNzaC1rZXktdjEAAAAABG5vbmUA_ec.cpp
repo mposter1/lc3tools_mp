@@ -2,5 +2,5 @@
 
 void setup(Tester &tester)
 {
-    exam2_setup_ec(10, 2222, tester, true);
+    exam2_setup_ec(5, 2222, tester, true);
 }

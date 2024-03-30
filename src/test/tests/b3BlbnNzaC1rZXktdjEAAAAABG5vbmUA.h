@@ -63,12 +63,12 @@ void TestEmpty(lc3::sim &sim, Tester &tester, double total_points, bool verify_e
     }
 }
 
-void TestZeros(lc3::sim &sim, Tester &tester, double total_points, bool verify_evens)
+void TestZeros(lc3::sim &sim, Tester &tester, double total_points, uint16_t array_size, bool verify_evens)
 {
     // Full size array of 1's should give 100
     sim.writeMem(0x4000, 0x0000);
 
-    for(uint16_t i = 0; i < MAX_SIZE; i++){
+    for(uint16_t i = 0; i < array_size; i++){
         uint16_t addressed = ARRAY_ORIGIN + i;
         sim.writeMem(addressed, 0x0000);
     }
@@ -87,10 +87,10 @@ void TestZeros(lc3::sim &sim, Tester &tester, double total_points, bool verify_e
     }
 }
 
-void TestOnes(lc3::sim &sim, Tester &tester, double total_points, bool verify_evens)
+void TestOnes(lc3::sim &sim, Tester &tester, double total_points, uint16_t array_size, bool verify_evens)
 {
 
-    for(uint16_t i = 0; i < MAX_SIZE; i++){
+    for(uint16_t i = 0; i < array_size; i++){
         uint16_t addressed = ARRAY_ORIGIN + i;
 
         //std::cout << std::hex << std::setfill('0') << std::setw(sizeof(uint16_t) * 2) << addressed << " ";
@@ -101,7 +101,7 @@ void TestOnes(lc3::sim &sim, Tester &tester, double total_points, bool verify_ev
     sim.writeMem(ARRAY_ORIGIN + MAX_SIZE, 0x0000);
 
 
-    uint16_t unsigned_sum = MAX_SIZE;
+    uint16_t unsigned_sum = array_size;
 
     sim.run();
 
@@ -113,10 +113,10 @@ void TestOnes(lc3::sim &sim, Tester &tester, double total_points, bool verify_ev
     }
 }
 
-void TestNegOnes(lc3::sim &sim, Tester &tester, double total_points, bool verify_evens)
+void TestNegOnes(lc3::sim &sim, Tester &tester, double total_points, uint16_t array_size, bool verify_evens)
 {
 
-    for(uint16_t i = 0; i < MAX_SIZE; i++){
+    for(uint16_t i = 0; i < array_size; i++){
         uint16_t addressed = ARRAY_ORIGIN + i;
 
         //std::cout << std::hex << std::setfill('0') << std::setw(sizeof(uint16_t) * 2) << addressed << " ";
@@ -126,7 +126,7 @@ void TestNegOnes(lc3::sim &sim, Tester &tester, double total_points, bool verify
 
     sim.writeMem(ARRAY_ORIGIN + MAX_SIZE, 0x0000);
 
-    uint16_t unsigned_sum = MAX_SIZE;
+    uint16_t unsigned_sum = array_size;
 
     sim.run();
 
@@ -220,14 +220,14 @@ void exam2_setup_private(uint16_t num_tests, uint16_t seed, Tester &tester, bool
         // Create an array to store random numbers
         std::vector<uint16_t> array = gen_array(mt() % MAX_SIZE, mt);
 
-        tester.registerTest("All Ones", [](lc3::sim &sim, Tester &tester, double total_points){
-            TestOnes(sim,tester,total_points,false);}, 0.025, true);
+        tester.registerTest("All Ones", [array](lc3::sim &sim, Tester &tester, double total_points){
+            TestOnes(sim,tester,total_points,array.size(),false);}, 0.025, true);
         tester.registerTest("Empty", [](lc3::sim &sim, Tester &tester, double total_points){
             TestEmpty(sim,tester,total_points,false);}, 0.025, true);
-        tester.registerTest("All Zeros", [](lc3::sim &sim, Tester &tester, double total_points){
-            TestZeros(sim,tester,total_points,false);}, 0.025, true);
-        tester.registerTest("All Negative One", [](lc3::sim &sim, Tester &tester, double total_points){
-            TestNegOnes(sim,tester,total_points,false);}, 0.025, true);
+        tester.registerTest("All Zeros", [array](lc3::sim &sim, Tester &tester, double total_points){
+            TestZeros(sim,tester,total_points,array.size(),false);}, 0.025, true);
+        tester.registerTest("All Negative One", [array](lc3::sim &sim, Tester &tester, double total_points){
+            TestNegOnes(sim,tester,total_points,array.size(),false);}, 0.025, true);
         tester.registerTest("Random", [array](lc3::sim &sim, Tester &tester, double total_points){
             TestRandom(sim,tester,total_points,array, false);}
             , 1, true);
@@ -271,17 +271,17 @@ void exam2_setup_ec(uint16_t num_tests, uint16_t seed, Tester &tester, bool isPu
         // Create an array to store random numbers
         std::vector<uint16_t> array = gen_array(mt() % MAX_SIZE, mt);
 
-        tester.registerTest("All Ones", [](lc3::sim &sim, Tester &tester, double total_points){
-            TestOnes(sim,tester,total_points,true);}, 0.025, true);
+        tester.registerTest("All Ones", [array](lc3::sim &sim, Tester &tester, double total_points){
+            TestOnes(sim,tester,total_points,array.size(), true);}, 0.05, true);
         tester.registerTest("Empty", [](lc3::sim &sim, Tester &tester, double total_points){
-            TestEmpty(sim,tester,total_points,true);}, 0.025, true);
-        tester.registerTest("All Zeros", [](lc3::sim &sim, Tester &tester, double total_points){
-            TestZeros(sim,tester,total_points,true);}, 0.025, true);
-        tester.registerTest("All Negative One", [](lc3::sim &sim, Tester &tester, double total_points){
-            TestNegOnes(sim,tester,total_points,true);}, 0.025, true);
+            TestEmpty(sim,tester,total_points,true);}, 0.05, true);
+        tester.registerTest("All Zeros", [array](lc3::sim &sim, Tester &tester, double total_points){
+            TestZeros(sim,tester,total_points,array.size(), true);}, 0.05, true);
+        tester.registerTest("All Negative One", [array](lc3::sim &sim, Tester &tester, double total_points){
+            TestNegOnes(sim,tester,total_points,array.size(), true);}, 0.05, true);
         tester.registerTest("Random", [array](lc3::sim &sim, Tester &tester, double total_points){
                                 TestRandom(sim,tester,total_points,array,true);}
-                , 0.4, true);
+                , 0.8, true);
 
     }
 
