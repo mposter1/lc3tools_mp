@@ -230,7 +230,7 @@ void exam2_setup_private(uint16_t num_tests, uint16_t seed, Tester &tester, bool
             TestNegOnes(sim,tester,total_points,array.size(),false);}, 0.025, true);
         tester.registerTest("Random", [array](lc3::sim &sim, Tester &tester, double total_points){
             TestRandom(sim,tester,total_points,array, false);}
-            , 1, true);
+            , 0.9, true);
 
     }
 
