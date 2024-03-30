@@ -73,7 +73,7 @@ void TestZeros(lc3::sim &sim, Tester &tester, double total_points, uint16_t arra
         sim.writeMem(addressed, 0x0000);
     }
 
-    sim.writeMem(ARRAY_ORIGIN + MAX_SIZE, 0x0000);
+    sim.writeMem(ARRAY_ORIGIN + array_size, 0x0000);
 
     uint16_t unsigned_sum = 0x0000;
 
@@ -98,7 +98,7 @@ void TestOnes(lc3::sim &sim, Tester &tester, double total_points, uint16_t array
         sim.writeMem(addressed, 0x0001);
     }
 
-    sim.writeMem(ARRAY_ORIGIN + MAX_SIZE, 0x0000);
+    sim.writeMem(ARRAY_ORIGIN + array_size, 0x0000);
 
 
     uint16_t unsigned_sum = array_size;
@@ -124,7 +124,7 @@ void TestNegOnes(lc3::sim &sim, Tester &tester, double total_points, uint16_t ar
         sim.writeMem(addressed, 0xFFFF);
     }
 
-    sim.writeMem(ARRAY_ORIGIN + MAX_SIZE, 0x0000);
+    sim.writeMem(ARRAY_ORIGIN + array_size, 0x0000);
 
     uint16_t unsigned_sum = array_size;
 
