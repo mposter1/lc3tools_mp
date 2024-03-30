@@ -69,4 +69,4 @@ class TestLab(unittest.TestCase):
     def test_extra(self, set_score=None):
         """Extra Credit Test Case"""
         set_score(self._get_score_private(
-            '/autograder/submission/extra.out') / 100 * 5)
+            '/autograder/submission/ec.out') / 100 * 5)
