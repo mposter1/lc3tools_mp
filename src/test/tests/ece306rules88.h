@@ -20,7 +20,8 @@
 #define CLEAR_LEFT 0xFF
 #define CLEAR_RIGHT 0xFF00
 #define MAX_SUM 0xFFFF
-#define INTACT_CONST 0//0.05
+#define INTACT_CONST 0.0 // 0.05
+
 uint8_t verifyLength(lc3::sim &sim, uint16_t length_count, Tester &tester)
 {
     std::stringstream stream;
@@ -240,7 +241,7 @@ void TestRandom(lc3::sim &sim, Tester &tester, double total_points, std::vector<
         tester.verify("Test Evens @ x3FFE", verifyEvenCount(sim, num_evens, tester), total_points);
     }
     else{
-        tester.verify("Test Length @ x3FFF", verifyLength(sim, unsigned_sum, tester), total_points-0.05);
+        tester.verify("Test Length @ x3FFF", verifyLength(sim, unsigned_sum, tester), total_points-INTACT_CONST);
         //tester.verify("Test Array Intact", verifyArray(sim,array,tester),0.05);
     }
 }
