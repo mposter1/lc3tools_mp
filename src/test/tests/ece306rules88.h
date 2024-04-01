@@ -20,7 +20,7 @@
 #define CLEAR_LEFT 0xFF
 #define CLEAR_RIGHT 0xFF00
 #define MAX_SUM 0xFFFF
-#define INTACT_CONST 0.05
+#define INTACT_CONST 0//0.05
 uint8_t verifyLength(lc3::sim &sim, uint16_t length_count, Tester &tester)
 {
     std::stringstream stream;
