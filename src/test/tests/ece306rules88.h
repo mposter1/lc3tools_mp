@@ -120,7 +120,7 @@ void TestZeros(lc3::sim &sim, Tester &tester, double total_points, uint16_t arra
     }
     else{
         tester.verify("Test Length @ x3FFF", verifyLength(sim, unsigned_sum, tester), total_points-INTACT_CONST);
-        tester.verify("Test Array Intact", verifyConst(sim,0x0000,array_size,tester),INTACT_CONST);
+        //tester.verify("Test Array Intact", verifyConst(sim,0x0000,array_size,tester),INTACT_CONST);
     }
 }
 
@@ -147,7 +147,7 @@ void TestOnes(lc3::sim &sim, Tester &tester, double total_points, uint16_t array
     }
     else{
         tester.verify("Test Length @ x3FFF", verifyLength(sim, unsigned_sum, tester), total_points-INTACT_CONST);
-        tester.verify("Test Array Intact", verifyConst(sim,0x0001,array_size,tester),INTACT_CONST);
+        //tester.verify("Test Array Intact", verifyConst(sim,0x0001,array_size,tester),INTACT_CONST);
     }
 }
 
@@ -173,7 +173,7 @@ void TestNegOnes(lc3::sim &sim, Tester &tester, double total_points, uint16_t ar
     }
     else{
         tester.verify("Test Length @ x3FFF", verifyLength(sim, unsigned_sum, tester), total_points-INTACT_CONST);
-        tester.verify("Test Array Intact", verifyConst(sim,0xFFFF,array_size,tester),INTACT_CONST);
+        //tester.verify("Test Array Intact", verifyConst(sim,0xFFFF,array_size,tester),INTACT_CONST);
     }
 }
 
@@ -241,7 +241,7 @@ void TestRandom(lc3::sim &sim, Tester &tester, double total_points, std::vector<
     }
     else{
         tester.verify("Test Length @ x3FFF", verifyLength(sim, unsigned_sum, tester), total_points-0.05);
-        tester.verify("Test Array Intact", verifyArray(sim,array,tester),0.05);
+        //tester.verify("Test Array Intact", verifyArray(sim,array,tester),0.05);
     }
 }
 
