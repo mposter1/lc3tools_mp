@@ -2,7 +2,7 @@
 
 void setup(Tester &tester)
 {
-    std::mt19937 rng(611);
+    /*std::mt19937 rng(611);
     std::map<MapStruct, LinkedListNode> memory;
     std::map<MapStruct, std::string> stringMemory;
     std::unordered_set<std::string> courses;
@@ -79,5 +79,33 @@ void setup(Tester &tester)
     queries = generateQueries(rng, courses, 0, true);
     tester.registerTest("Test list 2 unique queries", [heads, memory, stringMemory, queries](lc3::sim &sim, Tester &tester, double total_points) {
         Test(heads, memory, stringMemory, queries, sim, tester, total_points);
-    }, 5, true);
+    }, 5, true);*/
+
+
+    uint16_t num_nodes;
+    bool query_type;
+    int seed;
+
+    for(uint16_t i = 80; i < 85; i++){
+        seed = i;
+        if (!(i % 2)){
+            query_type = true;
+        }else{
+            query_type = false;
+        }
+
+        num_nodes = i;
+
+        tester.registerTest("Test Random (Large)",[num_nodes, query_type, seed](lc3::sim &sim, Tester &tester, double total_points){
+            Test(num_nodes,query_type,seed,sim,tester,total_points);
+        }, 3,true);
+
+        tester.registerTest("Test Empty",[seed](lc3::sim &sim, Tester &tester, double total_points){
+            testEmpty(seed,sim,tester,total_points);
+        }, 3,true);
+
+        tester.registerTest("Test Single",[num_nodes, query_type, seed](lc3::sim &sim, Tester &tester, double total_points){
+            testSingle(seed,query_type,sim,tester,total_points);
+        }, 2,true);
+    }
 }
