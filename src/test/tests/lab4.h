@@ -183,7 +183,7 @@ void Test(uint16_t num_nodes, bool query_type, int seed,
 
     output = tester.getOutput();
 
-    check = tester.checkContain(output, "Type the room to be reserved and press Enter: ");
+    check = tester.checkContain(output, "Type the room to be reserved and press Enter: " + string_in_list + "\n");
     tester.verify("Is Prompt Correct?", check, 0);
     if (query_type) {
         check = tester.checkContain(output, string_in_list + " is currently available!");
@@ -246,7 +246,7 @@ void testSingle(int seed, bool query_type, lc3::sim &sim, Tester &tester, double
 
     bool success = sim.runUntilHalt();
     std::string output = tester.getOutput();
-    bool check = tester.checkContain(output, "Type the room to be reserved and press Enter: ");
+    bool check = tester.checkContain(output, "Type the room to be reserved and press Enter: " + query_string + "\n");
     tester.verify("Is Prompt Correct?", check, 0);
     if (query_type) {
         check = tester.checkContain(output, query_string + " is currently available!");
