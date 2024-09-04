@@ -1,4 +1,4 @@
-# DISCLAIMER! This repo was cloned from https://github.com/chiragsakhuja/lc3tools
+# DISCLAIMER! This repo was cloned from [https://github.com/5ayam5/lc3tools](https://github.com/5ayam5/lc3tools), which is cloned from [https://github.com/chiragsakhuja/lc3tools](https://github.com/chiragsakhuja/lc3tools).
 
 # LC3Tools [![Build Status](https://travis-ci.org/chiragsakhuja/lc3tools.svg?branch=master)](https://travis-ci.org/chiragsakhuja/lc3tools)
 LC3Tools is a modern set of tools to build code for and simulate the LC-3
