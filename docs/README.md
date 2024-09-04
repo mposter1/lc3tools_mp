@@ -1,3 +1,5 @@
+# DISCLAIMER! This repo was cloned from https://github.com/chiragsakhuja/lc3tools
+
 # LC3Tools [![Build Status](https://travis-ci.org/chiragsakhuja/lc3tools.svg?branch=master)](https://travis-ci.org/chiragsakhuja/lc3tools)
 LC3Tools is a modern set of tools to build code for and simulate the LC-3
 system described in *Introduction to Computing* by Dr. Yale Patt and Dr. Sanjay
